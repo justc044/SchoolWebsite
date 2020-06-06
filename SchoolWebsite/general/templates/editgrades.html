@@ -1,0 +1,73 @@
+{% extends "headergrades.html" %}
+
+{% block content %}
+
+<style>
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+</style>
+
+    <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+                <p class="card-text">
+                    {% for m in membergrades %}
+                    <form action="/general/editgrade/{{ user.pk }}/{{ m.pk }}" method="post">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        {% if editgrade.pk == m.pk %}
+                            {{ form.grade.value }}
+                            <input type="submit" class="btn btn-primary custom" value="제출">
+                        {% else %}
+                            <td>{{ m.grade.value }}</td>
+                            <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
+                        {% endif %}
+
+                    </form>
+                    {% endfor %}
+<!--
+                        <table id="managegrades" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Student</th>
+                                <th>Grade</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in membergrades %}
+                            <tr>
+                                <td>{{ m.course.name }}</td>
+                                <td>{{ m.user.username }}</td>
+                                {% if editgrade.pk == m.pk %}
+                                    <td>{{ form }}</td>
+                                    <td><input type="submit" class="btn btn-primary custom" value="제출"></td>
+                                {% else %}
+                                    <td>{{ m.grade.value }}</td>
+                                    <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    -->
+            </p>
+        <a href="/general/" class="btn btn-primary">뒤로</a>
+    </div>
+
+<!--
+                                    <form action="/general/editgrade/{{ user.pk }}/{{ m.pk }}" method="post">
+
+
+-->
+
+
+{% endblock %}
