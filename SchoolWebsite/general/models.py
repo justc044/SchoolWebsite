@@ -45,16 +45,20 @@ class MemberGrade(models.Model):
 
 class MemberInfo(models.Model):
 
-    class RegStatus(models.TextChoices):
-        REGISTERED = 'R'
-        UNREGISTERED = 'U'
+    REGISTERED = 'RE'
+    UNREGISTERED = 'UR'
+
+    REGSTATUS = (
+        (REGISTERED, 'Registered'),
+        (UNREGISTERED, 'Unregistered')
+    )
 
     user = models.ForeignKey(User, on_delete = models.DO_NOTHING)
     name = models.CharField(max_length=10)
     registrationstatus = models.CharField(
-        max_length=1,
-        choices=RegStatus.choices,
-        default=RegStatus.UNREGISTERED,
+        max_length=12,
+        choices=REGSTATUS,
+        default=UNREGISTERED,
         )
     contactinfo = models.CharField(max_length=20, blank=True)
     email = models.CharField(max_length=200, blank=True)
