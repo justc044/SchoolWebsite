@@ -65,12 +65,7 @@ def displayinfo(request, pk):
         member = None
     context = {
         'pk': userob.pk,
-        'name': member.name,
-        'registrationstatus': member.registrationstatus,
-        'contactinfo': member.contactinfo,
-        'email': member.email,
-        'address': member.address,
-        'phone': member.phone,
+        'member': member
     }
     return render(request, 'displayinfo.html', context=context)
 

@@ -5,7 +5,7 @@
     {% if user.is_authenticated %}
         {% if user.pk == pk %}
         <div class="card-body">
-            <h5 class="card-title">{{ name }}</h5>
+            <h5 class="card-title">{{ member.name }}</h5>
                 <p class="card-text">
                     <table style="margin-left:auto;margin-right:auto;width:20em">
                         <tr>
@@ -14,23 +14,23 @@
                         </tr>
                         <tr>
                             <td>등록상태</td>
-                            <td>{{ registrationstatus }}</td>
+                            <td>{{ member.registrationstatus }}</td>
                         </tr>
                         <tr>
                             <td>연락처</td>
-                            <td>{{ contactinfo }}</td>
+                            <td>{{ member.contactinfo }}</td>
                         </tr>
                         <tr>
                             <td>주소</td>
-                            <td>{{ address }}</td>
+                            <td>{{ member.address }}</td>
                         </tr>
                         <tr>
                             <td>이메일</td>
-                            <td>{{ email }}</td>
+                            <td>{{ member.email }}</td>
                         </tr>
                         <tr>
                             <td>전화번호</td>
-                            <td>{{ phone }}</td>
+                            <td>{{ member.phone }}</td>
                         </tr>
                     </table>
                         {% for m in membergrade_list %}
