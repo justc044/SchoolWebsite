@@ -94,7 +94,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "http://ec2-52-79-79-26.apnortheast-2.compute.amazonaws.com:8000/general/courses/" + {{ upk }}, 
+                        url: "http://ec2-52-79-79-26.ap-northeast-2.compute.amazonaws.com:8000/general/courses/" + {{ upk }}, 
                         data: {'year': $('#semester option:selected').attr('data-year'), 'type': $('#semester option:selected').attr('data-type')},
                         headers: {'X-CSRFToken': csrftoken},
                         success: function(result){
