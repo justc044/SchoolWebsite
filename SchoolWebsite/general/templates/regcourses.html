@@ -83,7 +83,14 @@
         var csrftoken = getCookie('csrftoken');
 
         $(document).ready(function() {
+
             var table = $('#regcourses').DataTable({
+            });
+
+            $("#sem").val($("#semester").val());
+
+            $("#semester").change(function(){
+                $("#sem").val($("#semester").val());
             });
 
             $('table').tablecheckbox();
@@ -98,8 +105,6 @@
                         data: {'year': $('#semester option:selected').attr('data-year'), 'type': $('#semester option:selected').attr('data-type')},
                         headers: {'X-CSRFToken': csrftoken},
                         success: function(result){
-
-                            $("#sem").val($("#semester").val());
 
                             for (var i = 0; i < result.length; i++){
                                 table.row.add(['<input type="checkbox" name="course" value="' + result[i].id + '"></input>', result[i].name, result[i].professor]);
