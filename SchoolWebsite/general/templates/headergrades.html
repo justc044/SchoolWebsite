@@ -45,6 +45,12 @@
             $(document).ready(function() {
                 var table = $('#grades').DataTable({
                 });
+
+                document.getElementById('gradesave').addEventListener("click", submitFunction, false);
+
+                function submitFunction(){
+                    document.getElementById('grade').submit();
+                }
             })
     </script>
 

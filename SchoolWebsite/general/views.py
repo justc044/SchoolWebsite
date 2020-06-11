@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, redirect
-from .models import Announcement, MemberInfo, MemberGrade, Course, Semester
-from .forms import StudentInfoForm
+from .models import Announcement, MemberInfo, MemberGrade, Course, Semester, Grade
+from .forms import StudentInfoForm, GradeForm
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
@@ -98,16 +98,11 @@ def studentinfoedit(request, pk):
         member = form.save()
         member.save()
         context={'form': form,
-            'pk': member.pk,
-            'name': member.name,
-            'registrationstatus': member.registrationstatus,
-            'contactinfo': member.contactinfo,
-            'email': member.email,
-            'address': member.address,
-            'phone': member.phone,
+            'pk': userob.pk,
+            'member': member,
         }
         return redirect('/general/displayinfo/' + str(userob.pk))
-    return render(request, 'displayinfo.html', {'form': form})
+    return render(request, 'displayinfo.html', context)
 
 def editgrade(request, upk, pk):
     userob = User.objects.get(pk=upk)
@@ -150,6 +145,7 @@ def managegrades(request, pk):
 def editgrades(request, upk, pk):
     userob = User.objects.get(pk=upk)
     editgrade = MemberGrade.objects.get(pk=pk)
+    grades = Grade.objects.all()
     try: 
         courses = Course.objects.filter(professor = userob)
         membergrades = MemberGrade.objects.filter(course__in=courses)
@@ -161,7 +157,8 @@ def editgrades(request, upk, pk):
         'user': userob,
         'courses': courses,
         'membergrades': membergrades,
-        'editgrade': editgrade
+        'editgrade': editgrade,
+        'grades': grades
     }
     return render(request, 'editgrades.html', context=context)
 
@@ -207,6 +204,7 @@ def registercourses(request, upk):
 ## 학생이 등록 하지 않았고 등록 가능한 수업 리스트 
 @csrf_exempt
 def courses(request, upk):
+
     userob = User.objects.get(pk=upk)
     m_courses = MemberGrade.objects.filter(user = userob).values_list('course', flat=True)
 
@@ -223,3 +221,26 @@ def courses(request, upk):
 
     # Return the results   		
     return HttpResponse(json.dumps(json_res), content_type='application/json')
+
+def submitgrade(request, pk, upk):
+    userob = User.objects.get(pk=upk)
+    form = GradeForm(request.POST)
+    grades = Grade.objects.all()
+    try: 
+        courses = Course.objects.filter(professor = userob)
+        membergrades = MemberGrade.objects.filter(course__in=courses)
+        editgrade = MemberGrade.objects.get(pk=pk)
+    except (Course.DoesNotExist):
+        courses = None
+    except (MemberGrade.DoesNotExist):
+        membergrades = None
+    if form.is_valid():
+        return redirect('/general/managegrades/' + str(userob.pk))
+    context = {
+        'user': userob,
+        'courses': courses,
+        'membergrades': membergrades,
+        'editgrade': editgrade,
+        'grades': grades
+    }
+    return render(request, 'editgrades.html', context)

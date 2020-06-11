@@ -13,24 +13,68 @@
   margin-top: -1px;
 }
 </style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <div class="card-body">
-        <h5 class="card-title">{{ name }}</h5>
-                <p class="card-text">
-                    {% for m in membergrades %}
-                    <form action="/general/editgrade/{{ user.pk }}/{{ m.pk }}" method="post">
-                        {% csrf_token %}
-                        {{ form.non_field_errors }}
-                        {% if editgrade.pk == m.pk %}
-                            {{ form.grade.value }}
-                            <input type="submit" class="btn btn-primary custom" value="제출">
+        <h5 class="card-title">{{ user.name }}</h5>
+            <p class="card-text">
+
+                <table id="managegrades" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Student</th>
+                            <th>Grade</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for m in membergrades %}
+                        {% if m == editgrade %}
+                        <tr>
+                            <form id="grade" action="/general/submitgrade/{{ m.pk }}/{{ user.pk }}" method="post">
+                            {% csrf_token %}
+                                <td>{{ m.course.name }}</td>
+                                <td>{{ m.user.username }}</td>
+                                <td>
+                                    <select id="grade" name="grade">
+                                        {% for g in grades %}
+                                        <option value="{{g.value}}">{{g.value}}</option>
+                                        {% endfor %}
+                                    </select>
+                                <td><a id="gradesave"><i class="material-icons">&#xe161;</i></a></td>
+                            </form>
+                        </tr>
                         {% else %}
+                        <tr>
+                            <td>{{ m.course.name }}</td>
+                            <td>{{ m.user.username }}</td>
                             <td>{{ m.grade.value }}</td>
                             <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
+                        </tr>
                         {% endif %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
 
-                    </form>
-                    {% endfor %}
+
+<!--
+
+            {% for m in membergrades %}
+                <form action="/general/editgrade/{{ user.pk }}/{{ m.pk }}" method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% if editgrade.pk == m.pk %}
+                    {{ form.grade.value }}
+                    <input type="submit" class="btn btn-primary custom" value="제출">
+                {% else %}
+                    <td>{{ m.grade.value }}</td>
+                    <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
+                {% endif %}
+
+                </form>
+            {% endfor %}
+            --->
 <!--
                         <table id="managegrades" class="display" style="width:100%">
                         <thead>
@@ -68,6 +112,5 @@
 
 
 -->
-
 
 {% endblock %}

@@ -7,6 +7,14 @@ REGSTATUS = [
     ('UNREGISTERED', 'UNREGISTERED')
 ]
 
+LETTERGRADES = [
+    ('A', 'Excellent'),
+    ('B', 'Good'),
+    ('C', 'Average'),
+    ('D', 'Poor'),
+    ('F', 'Fail')
+]
+
 class StudentInfoForm(forms.ModelForm):
     class Meta:
         model = MemberInfo
@@ -26,3 +34,6 @@ class RegCoursesForm(forms.ModelForm):
     class Meta:
         model = MemberGrade
         fields = ['user', 'semester', 'course', 'grade']
+
+class GradeForm(forms.Form):
+    grade = forms.ChoiceField(choices=LETTERGRADES)

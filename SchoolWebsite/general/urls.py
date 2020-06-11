@@ -13,5 +13,6 @@ urlpatterns = [
     path('regcourses/<int:upk>', views.regcourses, name='regcourses'),
     path('registercourses/<int:upk>', views.registercourses, name='registercourses'),
     path('courses/<int:upk>', views.courses, name='courses'),
+    path('submitgrade/<int:pk>/<int:upk>', views.submitgrade, name='submitgrade'),
 ]
 
