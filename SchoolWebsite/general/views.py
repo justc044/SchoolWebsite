@@ -12,22 +12,25 @@ import json
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            group = Group.objects.get(name='Student')
-            user.groups.add(group)
-            newmemberinfo = MemberInfo(user=user)
-            newmemberinfo.registrationstatus = 'R'
-            newmemberinfo.save()
-            login(request, user)
-            return redirect('/general/')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+        signup_data = request.POST.dict()
+
+        username = signup_data.get("username")
+        password = signup_data.get("password")
+        name = signup_data.get("name")
+
+        user = User.objects.create_user(username, email=None, password=password)
+
+        user = authenticate(username=username, password=password)
+
+        group = Group.objects.get(name='Student')
+        user.groups.add(group)
+        newmemberinfo = MemberInfo(user=user)
+        newmemberinfo.registrationstatus = 'R'
+        newmemberinfo.name = name
+        newmemberinfo.save()
+        login(request, user)
+        return redirect('/general/')
+    return render(request, 'signup.html')
 
 def signupprofessor(request):
     if request.method == 'POST':
@@ -222,10 +225,10 @@ def courses(request, upk):
     # Return the results   		
     return HttpResponse(json.dumps(json_res), content_type='application/json')
 
+@csrf_exempt
 def submitgrade(request, pk, upk):
     userob = User.objects.get(pk=upk)
-    form = GradeForm(request.POST)
-    grades = Grade.objects.all()
+    grade_data = request.POST.dict()
     try: 
         courses = Course.objects.filter(professor = userob)
         membergrades = MemberGrade.objects.filter(course__in=courses)
@@ -234,13 +237,8 @@ def submitgrade(request, pk, upk):
         courses = None
     except (MemberGrade.DoesNotExist):
         membergrades = None
-    if form.is_valid():
-        return redirect('/general/managegrades/' + str(userob.pk))
-    context = {
-        'user': userob,
-        'courses': courses,
-        'membergrades': membergrades,
-        'editgrade': editgrade,
-        'grades': grades
-    }
-    return render(request, 'editgrades.html', context)
+    grade = grade_data.get("grade")
+    editgrade.grade = Grade.objects.get(value=grade)
+    print(editgrade.grade)
+    editgrade.save()
+    return redirect('/general/managegrades/' + str(userob.pk))

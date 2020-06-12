@@ -23,7 +23,7 @@ class StudentInfoForm(forms.ModelForm):
 class SignupStudentForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'first_name']
 
 class GradeEditForm(forms.Form):
     class Meta:
@@ -36,4 +36,4 @@ class RegCoursesForm(forms.ModelForm):
         fields = ['user', 'semester', 'course', 'grade']
 
 class GradeForm(forms.Form):
-    grade = forms.ChoiceField(choices=LETTERGRADES)
+    value = forms.ChoiceField(choices=LETTERGRADES)

@@ -6,14 +6,14 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>SL아케데미 대학교</title>
+    <title>하이브리드클라우드 대학교</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
 
     <!-- Bootstrap core CSS -->
     {% load static %}
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="" crossorigin="anonymous" integrity="">
-
+<link href="{% static 'css/jumbotron.css' %}" rel="stylesheet" integrity="">
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -41,10 +41,17 @@
           font-size: 3.5rem;
         }
       }
+
+      {% load static %}
+      .jumbotron {
+        background-image: url("{% static "img/cloud.jpg" %}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
     </style>
-    <!-- Custom styles for this template -->
-    {% load static %}
-    <link href="{% static 'css/jumbotron.css' %}" rel="stylesheet" integrity="">
+
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -101,10 +108,8 @@
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
-    
-      <h1 class="display-3">SL 아카데미 대학교</h1>
-      <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+      <h1 class="display-3">하이브리드클라우드 대학교</h1>
+      <p>미래를 향해 효율적인 솔루션을 연구할 수 있는 학생들을 환영합니다. 하이브리드 클라우드 기술로 fault-tolerant 사이트 운영을 하고 있습니다.</p>
     </div>
   </div>
 
