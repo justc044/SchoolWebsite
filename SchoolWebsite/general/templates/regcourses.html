@@ -99,7 +99,7 @@
 
                 $("#getCourses").click(function(){
 
-                    $("#tablebody").empty();
+                    $("#tablebody").remove();
 
                     $.ajax({
                         type: "POST",
@@ -111,7 +111,7 @@
                         headers: {'X-CSRFToken': csrftoken},
                         success: function(result){
 
-                            $("#tablebody").empty();
+                            $("#tablebody").remove();
 
                             for (var i = 0; i < result.length; i++){
                                 table.row.add(['<input type="checkbox" name="course" value="' + result[i].id + '"></input>', result[i].name, result[i].professor]);
