@@ -29,7 +29,7 @@ def signup(request):
         newmemberinfo.name = name
         newmemberinfo.save()
         #login(request, user)
-        return redirect('/accounts/login')
+        return redirect('/accounts/login/')
     return redirect('/accounts/login/')
 
 def loginDefined(request):
