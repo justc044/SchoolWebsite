@@ -124,7 +124,7 @@
 
   <div class="login-page">
     <div class="form">
-      <form class="register-form" method="post" action="/signup/">
+      <form class="register-form" method="post" action="{% url 'signup' %}">
         {% csrf_token %}
         <input name="name" type="text" placeholder="name"/>
         <input name="username" type="text" placeholder="username"/>

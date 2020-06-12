@@ -20,7 +20,7 @@ def signup(request):
 
         user = User.objects.create_user(username, email=None, password=password)
 
-        user = authenticate(username=username, password=password)
+        #user = authenticate(username=username, password=password)
 
         group = Group.objects.get(name='Student')
         user.groups.add(group)
@@ -28,8 +28,8 @@ def signup(request):
         newmemberinfo.registrationstatus = 'R'
         newmemberinfo.name = name
         newmemberinfo.save()
-        login(request, user)
-        return redirect('/general/')
+        #login(request, user)
+        return redirect('/accounts/login')
     return redirect('/accounts/login/')
 
 def loginDefined(request):
