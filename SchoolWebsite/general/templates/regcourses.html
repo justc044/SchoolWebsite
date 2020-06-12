@@ -111,39 +111,11 @@
                         headers: {'X-CSRFToken': csrftoken},
                         success: function(result){
 
-                            $("#tablebody").remove();
-
                             for (var i = 0; i < result.length; i++){
                                 table.row.add(['<input type="checkbox" name="course" value="' + result[i].id + '"></input>', result[i].name, result[i].professor]);
                             }
 
                             table.draw();
-
-                            /*
-
-                            for (var i = 0; i < result.length; i++){
-                                var opt = result[i];
-                                var inpu = document.createElement("input");
-                                inpu.type = "checkbox";
-                                inpu.name = "course";
-                                inpu.value = result[i].id;
-                                var el = document.createElement("td");
-                                el.textContent = result[i].name;
-                                var en = document.createElement("td");
-                                en.textContent = result[i].professor;
-
-                                $("#sem").val($("#semester").val());
-                                
-                                var td = document.createElement("td");
-                                var tr = document.createElement("tr");
-
-                                var tbody = document.getElementById("tablebody");
-                                tbody.appendChild(tr);
-                                tr.appendChild(td);
-                                tr.appendChild(el);
-                                tr.appendChild(en);
-                                td.appendChild(inpu);
-                            }*/
                         },
                         error: function(){
                             alert('error');
