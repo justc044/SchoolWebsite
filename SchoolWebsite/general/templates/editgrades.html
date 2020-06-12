@@ -37,7 +37,7 @@
                                 <td>{{ m.course.name }}</td>
                                 <td>{{ m.user.username }}</td>
                                 <td>
-                                    <select id="grade" name="grade">
+                                    <select id="gradeselect" name="grade">
                                         {% for g in grades %}
                                         <option value="{{g.value}}">{{g.value}}</option>
                                         {% endfor %}
@@ -56,62 +56,9 @@
                         {% endif %}
                       {% endfor %}
                     </tbody>
-                  </table>
-
-
-<!--
-
-            {% for m in membergrades %}
-                <form action="/general/editgrade/{{ user.pk }}/{{ m.pk }}" method="post">
-                {% csrf_token %}
-                {{ form.non_field_errors }}
-                {% if editgrade.pk == m.pk %}
-                    {{ form.grade.value }}
-                    <input type="submit" class="btn btn-primary custom" value="제출">
-                {% else %}
-                    <td>{{ m.grade.value }}</td>
-                    <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
-                {% endif %}
-
-                </form>
-            {% endfor %}
-            --->
-<!--
-                        <table id="managegrades" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Course</th>
-                                <th>Student</th>
-                                <th>Grade</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for m in membergrades %}
-                            <tr>
-                                <td>{{ m.course.name }}</td>
-                                <td>{{ m.user.username }}</td>
-                                {% if editgrade.pk == m.pk %}
-                                    <td>{{ form }}</td>
-                                    <td><input type="submit" class="btn btn-primary custom" value="제출"></td>
-                                {% else %}
-                                    <td>{{ m.grade.value }}</td>
-                                    <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
-                                {% endif %}
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
-                    -->
+                </table>
             </p>
         <a href="/general/" class="btn btn-primary">뒤로</a>
     </div>
-
-<!--
-                                    <form action="/general/editgrade/{{ user.pk }}/{{ m.pk }}" method="post">
-
-
--->
 
 {% endblock %}
