@@ -99,7 +99,8 @@
 
                 $("#getCourses").click(function(){
 
-                    $("#tablebody").html("");
+                    $("#tablebody").empty();
+                    table.clear()
 
                     $.ajax({
                         type: "POST",
