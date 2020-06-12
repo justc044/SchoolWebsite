@@ -30,7 +30,18 @@ def signup(request):
         newmemberinfo.save()
         login(request, user)
         return redirect('/general/')
-    return render(request, 'signup.html')
+    return redirect('/accounts/login/')
+
+def loginDefined(request):
+    if request.method == 'POST':
+        signup_data = request.POST.dict()
+
+        username = signup_data.get("username")
+        password = signup_data.get("password")
+        user = authenticate(username=username, password=password)
+        login(request,user)
+        return redirect('/general/')
+    return redirect('/accounts/login/')
 
 def signupprofessor(request):
     if request.method == 'POST':
