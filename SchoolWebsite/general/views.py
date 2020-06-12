@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
+from django.urls import reverse
 import json
 
 # Create your views here.
@@ -18,8 +19,10 @@ def signup(request):
         password = signup_data.get("password")
         name = signup_data.get("name")
 
-        user = User.objects.create_user(username, email=None, password=password)
-
+        try:
+            user = User.objects.create_user(username, email=None, password=password)
+        except:
+            return HttpResponseRedirect('/accounts/login')
         #user = authenticate(username=username, password=password)
 
         group = Group.objects.get(name='Student')
@@ -29,7 +32,7 @@ def signup(request):
         newmemberinfo.name = name
         newmemberinfo.save()
         #login(request, user)
-        return render(request, 'registration/login.html')
+        return HttpResponseRedirect('../accounts/login/')
     return redirect('/accounts/login/')
 
 def loginDefined(request):

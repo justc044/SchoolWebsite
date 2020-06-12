@@ -134,6 +134,9 @@
       </form>
       <form class="login-form" method="post" action="{% url 'login' %}">
         {% csrf_token %}
+        {% if msg %}
+        <p class="message">{{ msg }}</p>
+        {% endif %}
         <input name="{{ form.username.name }}" type="text" placeholder="username" />
         <input name="{{ form.password.name }}" type="password" placeholder="password"/>
         <button type="submit" value="login">login</button>
